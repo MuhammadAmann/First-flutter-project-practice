@@ -1,7 +1,18 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: prefer_const_constructors, duplicate_ignore
 
-class Loginpage extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:flutter_application_1/utils/routes.dart';
+
+class Loginpage extends StatefulWidget {
   const Loginpage({Key? key}) : super(key: key);
+
+  @override
+  State<Loginpage> createState() => _LoginpageState();
+}
+
+class _LoginpageState extends State<Loginpage> {
+  String name = "";
+  bool changeButton = false;
 
   @override
   Widget build(BuildContext context) {
@@ -12,9 +23,9 @@ class Loginpage extends StatelessWidget {
           "assets/Images/Login_img.png",
           fit: BoxFit.cover,
         ),
-        const Text(
-          "Welcome",
-          style: TextStyle(
+        Text(
+          "Welcome $name",
+          style: const TextStyle(
               fontSize: 20, fontWeight: FontWeight.bold, color: Colors.teal),
         ),
         Padding(
@@ -22,24 +33,64 @@ class Loginpage extends StatelessWidget {
           child: Column(
             children: [
               TextFormField(
-                decoration: const InputDecoration(
-                  hintText: "Enter user name",
-                  labelText: "User name",
-                ),
-              ),
+                  decoration: const InputDecoration(
+                    hintText: "Enter user name",
+                    labelText: "User name",
+                  ),
+                  onChanged: (value) {
+                    name = value;
+                    setState(() {});
+                  }),
               TextFormField(
                 decoration: const InputDecoration(
                     hintText: "Enter Password", labelText: "Password"),
               ),
               const SizedBox(height: 20.0),
-              ElevatedButton(
-                child: const Text("Login"),
-                style: TextButton.styleFrom(backgroundColor: Colors.teal),
-                onPressed: () {
-                  print(
-                      "Congrats Shehzad your 1st Page(Login_Page) is completed of with flutter code");
+              InkWell(
+                onTap: () async {
+                  setState(() {
+                    changeButton = true;
+                  });
+                  await Future.delayed(Duration(seconds: 1));
+                  Navigator.pushNamed(context, MyRoutes.HomeRoutes);
                 },
+                child: AnimatedContainer(
+                  duration: Duration(seconds: 1),
+                  width: changeButton ? 50 : 120,
+                  height: 50,
+                  alignment: Alignment.center,
+                  // ignore: prefer_const_constructors, sort_child_properties_last
+                  child: changeButton
+                      ? Icon(
+                          Icons.done,
+                          color: Colors.white,
+                        )
+                      : Text(
+                          "Login",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                          ),
+                        ),
+                  decoration: BoxDecoration(
+                      color: Colors.teal,
+                      // shape: changeButton
+                      // ? BoxShape.circle
+                      // : BoxShape.rectangle,
+                      borderRadius:
+                          BorderRadius.circular(changeButton ? 50 : 8)),
+                ),
               ),
+
+              // ElevatedButton(
+              //   // ignore: sort_child_properties_last
+              //   child: const Text("Login"),
+              //   style: TextButton.styleFrom(
+              //       minimumSize: Size(130, 40), backgroundColor: Colors.teal),
+              //   onPressed: () {
+              //     Navigator.pushNamed(context, MyRoutes.HomeRoutes);
+              //   },
+              // ),
             ],
           ),
         )
