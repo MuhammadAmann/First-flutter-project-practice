@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/home.dart';
 import 'package:flutter_application_1/login_page.dart';
@@ -18,9 +20,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: (Colors.teal),
       ),
       darkTheme: ThemeData(brightness: Brightness.light),
-      initialRoute: "/",
+      debugShowCheckedModeBanner: false,
+      initialRoute: MyRoutes.HomeRoutes,
       routes: {
-        "/": (context) => const Loginpage(),
+        "/": (context) => Loginpage(),
         MyRoutes.HomeRoutes: (context) => const Home(),
         MyRoutes.LoginRoutes: (context) => const Loginpage(),
       },
